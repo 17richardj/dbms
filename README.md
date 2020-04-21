@@ -1,2 +1,2 @@
 # dbms
-Payment System for restaurants and patrons
+Payment system for restaurants and patrons
