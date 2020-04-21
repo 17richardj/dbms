@@ -100,41 +100,14 @@ section {
 
       </div>
 <div class="container h-100 col-sm-8" style="margin-top: 3%">
-  <h2 style="font-family: garamond">Login</h2>
+  <h2 class="mx-auto center" style="font-family: garamond">Welcome!</h2>
 	<hr>
-<form id="form" method="post" class="needs-validation">
-  <div class="form-group">
-    <label for="email">Username:</label>
-    <input type="text" class="form-control" id="uname" placeholder="Enter username" name="email" required>
-    <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
-    <div class="valid-feedback">Valid.</div>
-    <div class="invalid-feedback">Please fill out this field.</div>
-  </div>
-  <div class="form-group form-check">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" name="remember">Check this to Remember Me
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Invalid</div>
-			</div>
-    </label>
-    <div class="row">
-  </div>
-  <div class="row">
-    <div class="col-md- mx-auto">
-  <button type="submit" value="Login" class="btn btn-outline-dark">Login</button>
-</div>
-</div>
-</div>
-</form>
+  <div class="text-center"><em>Thanks for joining us!</em></div>
+
 <div class="mssg bg-danger">
 	<span id="check" ></span>
 </div>
-<div id="LangTable"><a href="/profile" id="aa"></a>
+<div id="LangTable"><a href="/login" id="aa"></a>
 	<script>
 // Disable form submissions if there are invalid fields
 (function() {
@@ -164,8 +137,8 @@ section {
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
     <hr class="w-25">
-    <div class="footer-copyright text-center py-3">Don't Have an Account?
-      <a href="/register" style="color: black"> <strong>click here</strong></a>
+    <div class="footer-copyright text-center py-3">
+      <a href="/dbms/restaurant_login.php" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
     </div>
   </div>
   <!-- Copyright -->

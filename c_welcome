@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Gamry</title>
+  <title>DBMS</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -65,7 +65,7 @@ section {
 	</style>
 </head>
 <nav id = "navbarColo" class="navbar navbar-expand-lg navbar-light  navbar-fixed">
-  <a class="navbar-brand" href="#" style="font-family: garamond; border-bottom: medium solid black "><strong>Game</strong>ry</a>
+  <a class="navbar-brand" href="#" style="font-family: garamond; border-bottom: medium solid black "><strong>DB</strong>MS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -102,7 +102,7 @@ section {
 <div class="container h-100 col-sm-8" style="margin-top: 3%">
   <h2 class="mx-auto center" style="font-family: garamond">Welcome!</h2>
 	<hr>
-  <div class="text-center"><em>Thanks for joining us. Keep on the lookout for new content, but most of all Have Fun!</em></div>
+  <div class="text-center"><em>Thanks for joining us!</em></div>
 
 <div class="mssg bg-danger">
 	<span id="check" ></span>
@@ -138,7 +138,7 @@ section {
   <div class="footer-copyright text-center py-3">
     <hr class="w-25">
     <div class="footer-copyright text-center py-3">
-      <a href="/login" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
+      <a href="/dbms/user_login.php" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
     </div>
   </div>
   <!-- Copyright -->
