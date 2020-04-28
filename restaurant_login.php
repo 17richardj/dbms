@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT rid, rName, rPassword FROM restaurants WHERE rName = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -214,10 +214,10 @@ body {
           <a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../about.php">About</a>
+          <a class="nav-link" href="/dbms/about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../contact.php">Contact</a>
+          <a class="nav-link" href="/dbms/contact.php">Contact</a>
         </li>
       </ul>
       <span class="navbar-text">

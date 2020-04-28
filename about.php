@@ -71,16 +71,16 @@ section {
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-  		<li class="nav-item active">
-  			<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-  		</li>
-  		<li class="nav-item">
-  			<a class="nav-link" href="/scoreboard">Leaderboards</a>
-  		</li>
-  		<li class="nav-item">
-  			<a class="nav-link" href="/library">Library</a>
-  		</li>
-  	</ul>
+      <li class="nav-item active">
+        <a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dbms/about.php">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dbms/contact.php">Contact</a>
+      </li>
+    </ul>
     <span class="navbar-text">
       <a href="#" class="fa fa-facebook"></a>
       <a href="#" class="fa fa-twitter"></a>
@@ -100,9 +100,9 @@ section {
 
       </div>
 <div class="container h-100 col-sm-8" style="margin-top: 3%">
-  <h2 class="mx-auto center" style="font-family: garamond">Welcome!</h2>
+  <h2 class="mx-auto center" style="font-family: garamond">About Us</h2>
 	<hr>
-  <div class="text-center"><em>Thanks for joining us!</em></div>
+  <div class="text-center"><em>"DBMS is designed to allow users a simpler dining experience. With this service users can enter any place that serves food and beverage and order and pay with the click of a button. DBMS reduces the distraction and annoyance of waiters while better organizing restaurants orders and payment system. Enjoy all that DBMS provides!" - Josh and Lauren</em></div>
 
 <div class="mssg bg-danger">
 	<span id="check" ></span>
@@ -137,9 +137,6 @@ section {
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
     <hr class="w-25">
-    <div class="footer-copyright text-center py-3">
-      <a href="/dbms/user_login.php" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
-    </div>
   </div>
   <!-- Copyright -->
 

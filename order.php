@@ -10,7 +10,30 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 // Include config file
 require_once "config.php";
 
-$sql = "SELECT rid, rName, address FROM restaurants";
+$rid = $_COOKIE["rid"];
+
+$user_Id = $_SESSION["id"];
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+$stm = "SELECT mid from menu where rid=".$rid."";
+$count = $link->query($stm);
+$size = mysqli_num_rows($count);
+echo $_POST['item1'];
+  $order = 'INSERT INTO orders (mid, name, quantity, price, id) values ';
+for($i = 1; $i <= $size; $i++){
+  $order .= '('.$_POST["mid".$i.""].', "'.$_POST["item".$i.""].'", '.$_POST["quantity".$i.""].', '.$_POST["price".$i.""].', '.$user_Id.'';
+  ($i == $size) ? $order.=');' :  $order.='),';
+
+}
+if ($link->query($order) === TRUE) {
+  header('location: bill.php');
+} else {
+    echo "Error: " . $order . "<br>" . $link->error;
+}
+}
+
+$sql = "SELECT descr, mid, name, price, categ FROM menu WHERE rid= ".$rid."";
 $result = $link->query($sql);
 ?>
 <!DOCTYPE html>
@@ -83,65 +106,35 @@ color: black;
 	</span>
 </div>
 </nav>
-<div class="container h-100">
+<div class="container ">
 	<div class="col-sm-12">
-		<h1 style="font-family: garamond">Find Restaurants</h1>
-<div type="text" class="input-group mb-3" contentEditable=true data-text="Search...">
-  <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary">Filter Search</button>
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Fast</a>
-      <a class="dropdown-item" href="#">Asian</a>
-      <a class="dropdown-item" href="#">Bar</a>
-      <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Type</a>
-    </div>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+		<h1 style="font-family: garamond">Order Now</h1>
 </div>
-</div>
-
+<div class="wrapper">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form1" method="post" class="needs-validation">
+<!--<input style='width: %' type='text' class='form-control w-50' placeholder='Table #' name='quantity'  required>-->
+<div class="card-columns">
 <?php
 if ($result->num_rows > 0) {
     // output data of each row
+    $num = 0;
     while($row = $result->fetch_assoc()) {
-        echo "<div class='card'><div class='card-header font-weight-bold'>Name: ". $row["rName"]."<span class='float-right'><button class='btn btn-outline-dark' onclick='click()' value=".$row["rid"].">Select</button></span></div><div class='card-body'>Address: ". $row["address"]."</div></div>";
+      $num++;
+        echo "<div class='card card-body'><span class='float-right font-weight-bold'>$".$row["price"]."</span><h6 class='text-truncate'>".$row["name"]."</h6><p class='small'>".$row["descr"]."</p><span class='font-weight-bold small'></span><input style='width: 16%' type='number' class='form-control float-right' placeholder='0' name='quantity".$num."'  required><input type='hidden' name='mid".$num."' value='".$row["mid"]."'><input type='hidden' name='item".$num."' value='".$row["name"]."'>
+        <input type='hidden' name='price".$num."' value='".$row["price"]."'></div>";
     }
 } else {
-    echo "0 results";
+    echo "No Menu uploaded";
 }
 $link->close();
 ?>
+</div>
+<div class="col-sm-12 text-center">
+  <button type="submit" value="Login" class="btn btn-outline-dark text-center">Place Order</button>
+</div>
+</form>
+</div>
 
-<script>
-  $("button").click(function() {
-    //document.cookie = 'rid=
-      var fired_button = $(this).val();
-      document.cookie = 'rid='+fired_button+';';
-      function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-window.location.href = 'https://localhost/dbms/order.php';
-  });
-</script>
-
-
-	</div>
 
 	<footer class="page-footer font-small cyan darken-3">
 
@@ -169,7 +162,7 @@ window.location.href = 'https://localhost/dbms/order.php';
 
 		<!-- Copyright -->
 		<div class="footer-copyright text-center py-3">© 2020 Copyright:
-			<a href="https://mdbootstrap.com/" style="color: black"><strong>dbms.com</strong></a>
+			<a href="#" style="color: black"><strong>dbms.com</strong></a>
 		</div>
 		<!-- Copyright -->
 

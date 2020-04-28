@@ -10,7 +10,16 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 // Include config file
 require_once "config.php";
 
-$sql = "SELECT rid, rName, address FROM restaurants";
+$rid = $_COOKIE["rid"];
+
+$user_Id = $_SESSION["id"];
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+}
+
+$sql = "SELECT order_Id, name, quantity, price FROM orders WHERE id= ".$user_Id."";
 $result = $link->query($sql);
 ?>
 <!DOCTYPE html>
@@ -66,82 +75,95 @@ color: black;
 	<span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarText">
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/dbms/profile.php">Order</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/dbms/contact.php">Contact</a>
-    </li>
-  </ul>
+	<ul class="navbar-nav mr-auto">
+		<li class="nav-item active">
+			<a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/dbms/profile.php">Order</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../contact.php">Contact</a>
+		</li>
+	</ul>
 	<span class="navbar-text">
 
 		<a href="/dbms/logout.php" class="fa fa-user"></a>
 	</span>
 </div>
 </nav>
-<div class="container h-100">
+<div class="container ">
 	<div class="col-sm-12">
-		<h1 style="font-family: garamond">Find Restaurants</h1>
-<div type="text" class="input-group mb-3" contentEditable=true data-text="Search...">
-  <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary">Filter Search</button>
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Fast</a>
-      <a class="dropdown-item" href="#">Asian</a>
-      <a class="dropdown-item" href="#">Bar</a>
-      <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Type</a>
+		<h1 style="font-family: garamond">Contact Us</h1>
+</div>
+<form id="contact-form" method="post" action="contact.php" role="form">
+
+    <div class="messages"></div>
+
+    <div class="controls">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="form_name">Firstname *</label>
+                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="form_lastname">Lastname *</label>
+                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="form_email">Email *</label>
+                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="form_need">Please specify your need *</label>
+                    <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.">
+                        <option value=""></option>
+                        <option value="Request quotation">Request quotation</option>
+                        <option value="Request order status">Request order status</option>
+                        <option value="Request copy of an invoice">Request copy of an invoice</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="form_message">Message *</label>
+                    <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input type="submit" class="btn btn-outline-dark" value="Send message">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-muted">
+                    <strong>*</strong> These fields are required. Contact form 
+                    <a href="https://bootstrapious.com/p/how-to-build-a-working-bootstrap-contact-form" target="_blank">dbms</a>.</p>
+            </div>
+        </div>
     </div>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+
+</form>
 </div>
-</div>
 
-<?php
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<div class='card'><div class='card-header font-weight-bold'>Name: ". $row["rName"]."<span class='float-right'><button class='btn btn-outline-dark' onclick='click()' value=".$row["rid"].">Select</button></span></div><div class='card-body'>Address: ". $row["address"]."</div></div>";
-    }
-} else {
-    echo "0 results";
-}
-$link->close();
-?>
-
-<script>
-  $("button").click(function() {
-    //document.cookie = 'rid=
-      var fired_button = $(this).val();
-      document.cookie = 'rid='+fired_button+';';
-      function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-window.location.href = 'https://localhost/dbms/order.php';
-  });
-</script>
-
-
-	</div>
 
 	<footer class="page-footer font-small cyan darken-3">
 
@@ -169,7 +191,7 @@ window.location.href = 'https://localhost/dbms/order.php';
 
 		<!-- Copyright -->
 		<div class="footer-copyright text-center py-3">© 2020 Copyright:
-			<a href="https://mdbootstrap.com/" style="color: black"><strong>dbms.com</strong></a>
+			<a href="#" style="color: black"><strong>dbms.com</strong></a>
 		</div>
 		<!-- Copyright -->
 

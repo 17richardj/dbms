@@ -138,7 +138,7 @@ section {
   <div class="footer-copyright text-center py-3">
     <hr class="w-25">
     <div class="footer-copyright text-center py-3">
-      <a href="/dbms/restaurant_login.php" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
+      <a href="/dbms/user_login.php" style="color: black"><button class="btn btn-outline-dark">Continue</button></a>
     </div>
   </div>
   <!-- Copyright -->

@@ -10,6 +10,42 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
 // Include config file
 require_once "config.php";
 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $num = $_COOKIE["max"];
+  //$sql =  INSERT INTO restaurants (name, descr, price) values
+  $stm = 'INSERT INTO menu (price, name, descr, rid) values ';
+  //$num1 = $num2 = $num3 = 0;
+  //echo $_POST['price'.$name.''];
+  for($i = 1; $i <= $num; $i++){
+    $stm .= '(';
+    $num1 = $_POST['price'.$i.''];
+    $stm.= '"'.$num1.'",';
+
+    $num2 = $_POST['name'.$i.''];
+    $stm.= '"'.$num2.'",';
+
+    $num3 = $_POST['description'.$i.''];
+    $stm.= '"'.$num3.'"';
+
+    $stm.= ',"'.$_SESSION['id'].'"';
+    if($i == $num){
+      $stm .= ')';
+    }else{
+      $stm .= '),';
+    }
+  }
+  $stm .= ';';
+
+  if ($link->query($stm) === TRUE) {
+      //echo "New record created successfully";
+  } else {
+      echo "Error: " . $stm . "<br>" . $link->error;
+  }
+}
+
+// Close connection
+mysqli_close($link);
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,6 +60,9 @@ require_once "config.php";
 	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./css/main.css">
 </head>
+<script>
+var count = 1;
+</script>
 <style>
 .table{
    display: block !important;
@@ -56,6 +95,9 @@ color: black;
 	background-attachment: fixed;
 	background: -webkit-gradient(linear, left top, right top, from(#7b4397), to(#dc2430)) fixed;
 }
+.card-columns {
+    column-count: 1;
+}
 </style>
 </head>
 <nav id = "navbarColo" class="navbar navbar-expand-lg navbar-light  navbar-fixed">
@@ -81,6 +123,52 @@ color: black;
 	</span>
 </div>
 </nav>
+<div class="container h-100 col-sm-12 text-center" style="margin-top: 3%">
+  <h2 style="font-family: garamond">Menu</h2>
+  <hr>
+</div>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="form1" method="post" class="needs-validation">
+  <div class="container">
+  <div class="card-columns">
+    <div class="card card-body" id="foo1">
+      <span class="float-right font-weight-bold">
+
+        <div class="form-group">
+                <label class="font-weight-bold">Price</label>
+          <input style="width: 50%" type="number" class="form-control" minLength="1" maxlength="20" placeholder="$0.00" name="price1"  required>
+      </div>
+    </span>
+          <div class="form-group">
+                  <label class="font-weight-bold">Item Name</label>
+            <input style="width: 25%" type="text" class="form-control" minLength="4" maxlength="20" placeholder="Ex: Fried Shrimp" name="name1"  required>
+        </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Item Description</label>
+      <textarea name="description1" class="form-control" id="exampleFormControlTextarea1" placeholder="Ex: Sustainably raised Argentine red shrimp, fried golden brown and served with chipotle mayonnaise for dipping." rows="3" required></textarea>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-outline-dark" id='main' onclick="myFunction()">+</button>
+    </div>
+    </div>
+  </div>
+  <div class="text-center">
+  <button type="submit" value="Login" onclick="max()" class="btn btn-outline-dark">Create Menu</button>
+</div>
+</div>
+</form>
+
+<script>
+function myFunction() {
+  count++;
+  var elem;
+  elem = "<div class='card card-body' id='menu_items'><span class='float-right font-weight-bold'><div class='form-group'><label class='font-weight-bold'>Price</label><input style='width: 50%' type='number' class='form-control' minLength='1' maxlength='20' placeholder='$0.00' name='price"+count+"' required></div></span><div class='form-group'><label class='font-weight-bold'>Item Name</label><input style='width: 25%' type='text' class='form-control' minLength='4' maxlength='20'"; elem+="placeholder='Ex: Fried Shrimp' name='name"+count+"'  required></div><div class='form-group'><label class='font-weight-bold'>Item Description</label><textarea name='description"+count+"' class='form-control' placeholder='Ex: Sustainably raised Argentine red shrimp, fried golden brown and served with chipotle mayonnaise for dipping.' rows='3'></textarea></div><div class='text-right'><button class='btn btn-outline-dark' id='main' onclick='myFunction()'>+</button></div></div>";
+  $('#foo1').after(elem);
+}
+
+function max(){
+  document.cookie = "max="+count+"";
+}
+</script>
 
 	<footer class="page-footer font-small cyan darken-3">
 

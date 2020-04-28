@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM restaurants WHERE r_name = ?";
+        $sql = "SELECT rid FROM restaurants WHERE rName = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -65,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO restaurants (r_name, r_password) VALUES (?, ?)";
+        $sql = "INSERT INTO restaurants (rName, rPassword) VALUES (?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -74,7 +74,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+/*
+            $stm = 'INSERT INTO restaurants (rName, rPassword) values ';
 
+            $stm .= '("'.$param_username.'", "'.$param_password.'");';
+
+            if ($link->query($stm) === TRUE) {
+                //echo "New record created successfully";
+            } else {
+                echo "Error: " . $stm . "<br>" . $link->error;
+            }*/
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Redirect to login page
@@ -84,7 +93,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            //mysqli_stmt_close($stmt);
         }
     }
 
@@ -219,10 +228,10 @@ body {
           <a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../about.php">About</a>
+          <a class="nav-link" href="/dbms/about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../contact.php">Contact</a>
+          <a class="nav-link" href="/dbms/contact.php">Contact</a>
         </li>
       </ul>
       <span class="navbar-text">
