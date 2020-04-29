@@ -1,5 +1,8 @@
 <?php
-// Initialize the session
+//Joshua Richard, Lauren
+//Database Managemenet Systems
+//Saint Joseph's University
+//Final Project - To create a functional app with front and back end integration
 session_start();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){

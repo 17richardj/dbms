@@ -1,3 +1,9 @@
+<!--
+//Joshua Richard, Lauren
+//Database Managemenet Systems
+//Saint Joseph's University
+//Final Project - To create a functional app with front and back end integration
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
