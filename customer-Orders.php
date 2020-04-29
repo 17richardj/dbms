@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 }
 
-$sql = "SELECT order_Id, name, quantity, price FROM orders WHERE id= ".$user_Id."";
+$sql = "SELECT order_id, name, quantity, price FROM orders WHERE id= ".$user_Id."";
 $result = $link->query($sql);
 ?>
 <!DOCTYPE html>
@@ -75,17 +75,17 @@ color: black;
 	<span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarText">
-	<ul class="navbar-nav mr-auto">
-		<li class="nav-item active">
-			<a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="/dbms/profile.php">Order</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../contact.php">Contact</a>
-		</li>
-	</ul>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="/dbms/index.html">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/dbms/profile.php">Order</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/dbms/contact.php">Contact</a>
+    </li>
+  </ul>
 	<span class="navbar-text">
 
 		<a href="/dbms/logout.php" class="fa fa-user"></a>
@@ -94,73 +94,35 @@ color: black;
 </nav>
 <div class="container ">
 	<div class="col-sm-12">
-		<h1 style="font-family: garamond">Contact Us</h1>
+		<h1 style="font-family: garamond">Customer Orders</h1>
 </div>
-<form id="contact-form" method="post" action="contact.php" role="form">
-
-    <div class="messages"></div>
-
-    <div class="controls">
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="form_name">Firstname *</label>
-                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="form_lastname">Lastname *</label>
-                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="form_email">Email *</label>
-                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Valid email is required.">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="form_need">Please specify your need *</label>
-                    <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.">
-                        <option value=""></option>
-                        <option value="Request quotation">Request quotation</option>
-                        <option value="Request order status">Request order status</option>
-                        <option value="Request copy of an invoice">Request copy of an invoice</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="form_message">Message *</label>
-                    <textarea id="form_message" name="message" class="form-control" placeholder="Message for me *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <input type="submit" class="btn btn-outline-dark" value="Send message">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="text-muted">
-                    <strong>*</strong> These fields are required. Contact form
-                    <a href="https://bootstrapious.com/p/how-to-build-a-working-bootstrap-contact-form" target="_blank">dbms</a>.</p>
-            </div>
-        </div>
-    </div>
-
+<div class="container">
+  <div class="col-sm-12">
+  <table class="table text-center" style="width:100%">
+      <thead>
+        <tr>
+          <th>Order Id</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+</tr>
+      </thead>
+<?php
+if ($result->num_rows > 0) {
+    // output data of each row
+    $num = 0;
+    while($row = $result->fetch_assoc()) {
+      $num++;
+        echo "<tbody><tr><td>".$row['order_id']."</td><td>".$row['name']."</td><td>x".$row['quantity']."</td><td>$".$row['price']."</td></tr></tbody>";
+    }
+} else {
+    echo "No Menu uploaded";
+}
+$link->close();
+?>
+</table>
+</div>
+</div>
 </form>
 </div>
 
